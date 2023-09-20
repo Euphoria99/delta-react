@@ -1,12 +1,18 @@
 import React from 'react';
 import './index.css'
-
+import axios from 'axios';
+import {UserContextProvider} from "./UserContext"
+import  Routes from './Routes'
 
 function App() {
+
+  axios.defaults.baseURL = 'http://localhost:4000'
+  axios.defaults.withCredentials = true;
+
   return (
-    <div className="text-3xl font-bold underline">
-      Test
-    </div>
+    <UserContextProvider>
+    <Routes />
+    </UserContextProvider>
   );
 }
 
