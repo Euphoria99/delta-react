@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Avatar from "./Avatar";
 
 export default function Chat() {
 
@@ -39,12 +40,14 @@ export default function Chat() {
           EchoWave
         </div>
        {Object.keys(onlinePeople).map(userId => (
-        <div className="border-b border-gray-100 py-2">
-          {onlinePeople[userId]}
+        <div className="border-b border-gray-100 py-2 flex items-center gap-2 cursor-pointer">
+          <Avatar username={onlinePeople[userId]} userId={userId}/>
+          <span className="text-gray-800">{onlinePeople[userId]}</span>
+          
         </div>
        ))}
       </div>
-      <div className="flex flex-col bg-blue-50 w-2/3 p-2">
+      <div className="flex flex-col bg-blue-50 w-2/3 p-2 ">
         <div className="flex-grow">
             message with selected person
         </div>
