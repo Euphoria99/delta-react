@@ -137,8 +137,8 @@ export default function Chat() {
             </div>
           )}
           {!!selectedUserId && (
-              <div className="relative h-full ">
-                <div className="overflow-y-scroll h-80vh position-absolute top-0 left-0 right-0 bottom-12">
+              <div  className="relative h-full ">
+                <div className="overflow-y-scroll absolute top-0 left-0 right-0 bottom-0">
                   {messagesWithoutDupes.map((message) => (
                     <div
                       className={message.sender === id ? "text-right" : "text"}
@@ -157,7 +157,7 @@ export default function Chat() {
                       </div>
                     </div>
                   ))}
-                  <div className="h-12" ref={divUnderMessages}></div>
+                  <div ref={divUnderMessages}></div>
                 </div>
               </div>
           )}
