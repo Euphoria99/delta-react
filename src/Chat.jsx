@@ -81,7 +81,7 @@ export default function Chat() {
         text: newMessageText,
         sender: id,
         recipient: selectedUserId,
-        id: Date.now(),
+        _id: Date.now(),
       },
     ]);
     setNewMessageText("");
@@ -96,7 +96,11 @@ export default function Chat() {
 
   useEffect( () => {
     if(selectedUserId){
-      axios.get('/messages/'+selectedUserId)
+      axios.get('/messages/'+selectedUserId).then(
+        res => {
+          setMessages(res.data)
+        }
+      )
     }
   })
 
@@ -110,9 +114,9 @@ export default function Chat() {
     const messageIds = new Set();
 
     for (const message of messagesArray) {
-      if (!messageIds.has(message.id)) {
+      if (!messageIds.has(message._id)) {
         uniqueMessages.push(message);
-        messageIds.add(message.id);
+        messageIds.add(message._id);
       }
     }
 
@@ -159,7 +163,7 @@ export default function Chat() {
                 <div className="overflow-y-scroll absolute top-0 left-0 right-0 bottom-0">
                   {messagesWithoutDupes.map((message) => (
                     <div
-                      className={message.sender === id ? "text-right" : "text"}
+                      key={message._id} className={message.sender === id ? "text-right" : "text"}
                     >
                       <div
                         className={
@@ -169,8 +173,6 @@ export default function Chat() {
                             : "bg-white text-gray-500")
                         }
                       >
-                        sender: {message.sender} <br />
-                        my id: {id} <br />
                         {message.text}
                       </div>
                     </div>
@@ -198,13 +200,13 @@ export default function Chat() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
                 />
               </svg>
