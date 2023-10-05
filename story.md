@@ -85,3 +85,8 @@ This code snippet is part of WebSocket message handling in the backend. It respo
 5. **Broadcasting Messages**: After creating the message document, it broadcasts the message to all WebSocket clients whose `userId` matches the `recipient`. It iterates through all connected WebSocket clients (`wss.clients`) and filters those whose `userId` matches the `recipient`. For each matching client, it sends the message content in JSON format using `c.send()`. This allows real-time messaging, where the message is instantly delivered to the intended recipient.
 
 This code snippet represents a crucial part of real-time messaging functionality using WebSockets, ensuring that messages are received, stored in the database, and promptly delivered to the appropriate recipients.
+
+
+people -
+
+to grab all people info
