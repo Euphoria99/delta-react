@@ -16,7 +16,7 @@ export default function Chat() {
 
   const [selectedUserId, setSelectedUserId] = useState(null);
 
-  const { username, id } = useContext(UserContext);
+  const { username, id , setId, setUsername} = useContext(UserContext);
 
   const [newMessageText, setNewMessageText] = useState("");
 
@@ -143,10 +143,20 @@ export default function Chat() {
   // Usage in your component
   const messagesWithoutDupes = removeDuplicates(messages);
 
+  //logout
+  function logout(){
+    axios.post('/logout').then( () => {
+      setWs(null)
+      setId(null);
+      setUsername(null);
+    })
+  }
+
   return (
     <div className="flex h-screen">
-      <div className="bg-white w-1/3">
-        <Logo />
+      <div className="bg-white w-1/3 flex flex-col">
+        <div className="flex-grow">
+        <Logo />        
         {Object.keys(onlinePeopleExcludeOurself).map(userId => (
           <Contact 
           key={userId} 
@@ -165,6 +175,17 @@ export default function Chat() {
           onClick={() => setSelectedUserId(userId)} 
           selected={userId === selectedUserId}/>
         ))}
+        </div>
+
+        <div className="p-2 text-center flex items-center justify-center">
+          <span className="mr-2 text-sm text-gray-600 flex items-center"> 
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+           {username}
+          </span>
+          <button onClick={logout} className="text-sm bg-blue-100 py-1 px-2 text-grey-500 border rounded-sm">Logout</button>
+        </div>
       </div>
       <div className="flex flex-col bg-blue-50 w-2/3 p-2 ">
         <div className="flex-grow">
