@@ -58,7 +58,9 @@ export default function Chat() {
     } else if ("text" in messageData) {
       // Check if the message text already exists in the messages state
       //incoming messages
-      setMessages((prev) => [...prev, { ...messageData }]);
+      if(messageData.sender === selectedUserId){
+        setMessages((prev) => [...prev, { ...messageData }]);
+      }
     }
   }
 
@@ -122,7 +124,7 @@ export default function Chat() {
         setMessages(res.data);
       });
     }
-  });
+  }, [selectedUserId]);
 
   useEffect(() => {
     axios.get("/people").then((res) => {
