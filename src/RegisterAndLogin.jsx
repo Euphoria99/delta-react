@@ -9,7 +9,7 @@ export default function RegisterAndLogin() {
   const { setUsername: setLoggedInUsername, setId } = useContext(UserContext);
 
   async function handleSubmit(ev) {
-    console.log("the ev", ev);
+    // console.log("the ev", ev);
     ev.preventDefault();
 
     const url = isLoginOrRegister === "register" ? "register" : "login";
