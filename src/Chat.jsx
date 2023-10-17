@@ -51,7 +51,7 @@ export default function Chat() {
 
   function handleMessage(ev) {
     const messageData = JSON.parse(ev.data);
-    console.log({ ev, messageData });
+    // console.log({ ev, messageData });
 
     if ("online" in messageData) {
       showOnlinePeople(messageData.online);
@@ -118,7 +118,6 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    console.log("this one");
     if (selectedUserId) {
       axios.get("/messages/" + selectedUserId).then((res) => {
         setMessages(res.data);
