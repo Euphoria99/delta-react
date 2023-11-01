@@ -1,7 +1,7 @@
-import RegisterAndLogin from "./RegisterAndLogin"
-import Chat from "./Chat"
+import RegisterAndLogin from "../pages/RegisterAndLogin"
+import Chat from "../pages/Chat"
 import { useContext } from "react";
-import {UserContext, UserContextProvider} from "./UserContext"
+import {UserContext, UserContextProvider} from "../utils/UserContext"
 
 export default function Routes() {
 
