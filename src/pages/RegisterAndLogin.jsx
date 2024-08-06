@@ -9,13 +9,26 @@ export default function RegisterAndLogin() {
   const { setUsername: setLoggedInUsername, setId } = useContext(UserContext);
 
   async function handleSubmit(ev) {
-    // console.log("the ev", ev);
     ev.preventDefault();
-
-    const url = isLoginOrRegister === "register" ? "register" : "login";
-    const { data } = await axios.post(url, { username, password });
-    setLoggedInUsername(username);
-    setId(data.id);
+  
+    // Form validation
+    if (!username || !password) {
+      console.error('Username and password are required');
+      return;
+    }
+  
+    try {
+      const url = isLoginOrRegister === 'register' ? 'register' : 'login';
+      const response = await axios.post(url, { username, password });
+  
+      // Assuming the response contains user data including an ID
+      const { data } = response;
+      setLoggedInUsername(username);
+      setId(data.id);
+    } catch (error) {
+      console.error('Login failed:', error.message);
+      // Handle specific error cases here, e.g., display error messages to the user
+    }
   }
 
   return (
